@@ -7,6 +7,20 @@ using System.Threading.Tasks;
 namespace DoublyLinkedList {
   class Program {
     static void Main(string[] args) {
+      DoublyLinkedList<int> test1 = new DoublyLinkedList<int>(1);
+      test1.InsertInBack(2);
+      test1.InsertInBack(3);
+      test1.InsertInBack(4);
+      test1.PrintListBackToFront();
+      test1.PrintListFrontToBack();
+      DoublyLinkedList<int> test2 = new DoublyLinkedList<int>(4);
+      test2.InsertInFront(3);
+      test2.InsertInBack(5);
+      test2.InsertInFront(2);
+      test2.InsertInBack(6);
+      test2.PrintListFrontToBack();
+      test2.PrintListBackToFront();
+      Console.ReadKey();
     }
   }
 }
