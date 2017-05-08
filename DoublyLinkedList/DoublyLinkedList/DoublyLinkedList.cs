@@ -22,12 +22,15 @@ namespace DoublyLinkedList {
     private DoublyLinkedListElement<T> tail;
 
     /// <summary>
+    /// The number of elements in the list
+    /// </summary>
+    public int Count { get; private set; }
+
+    /// <summary>
     /// Create a DoublyLinkedList
     /// </summary>
     /// <param name="t"></param>
-    public DoublyLinkedList(T t) {
-      head = new DoublyLinkedListElement<T>(t);
-      tail = head;
+    public DoublyLinkedList() {
     }
 
     /// <summary>
@@ -36,9 +39,15 @@ namespace DoublyLinkedList {
     /// <param name="data"></param>
     public void InsertInFront(T data) {
       DoublyLinkedListElement<T> newElement = new DoublyLinkedListElement<T>(data);
-      head.Previous = newElement;
-      newElement.Next = head;
-      head = newElement;
+      if(head == null) { //This is the first item added
+        head = newElement;
+        tail = newElement;
+      } else {
+        head.Previous = newElement;
+        newElement.Next = head;
+        head = newElement;
+      }
+      Count++;
     }
 
     /// <summary>
@@ -47,15 +56,41 @@ namespace DoublyLinkedList {
     /// <param name="data"></param>
     public void InsertInBack(T data) {
       DoublyLinkedListElement<T> newElement = new DoublyLinkedListElement<T>(data);
-      tail.Next = newElement;
-      newElement.Previous = tail;
-      tail = newElement;
+      if(tail == null) { //This is the first item added
+        tail = newElement;
+        head = newElement;
+      } else {
+        tail.Next = newElement;
+        newElement.Previous = tail;
+        tail = newElement;
+      }
+      Count++;
+    }
+
+    /// <summary>
+    /// Remove an element from the list at the given index
+    /// </summary>
+    /// <param name="index"></param>
+    public void RemoveAtIndex(int index) {
+      if (index < Count - 1) {
+        int jumpsFromHead = index;
+        int jumpsFromTail = ;
+      } else {
+        throw new IndexOutOfRangeException();
+      }
+    }
+
+    private void Remove(DoublyLinkedListElement<T> toRemove) {
+
     }
 
     /// <summary>
     /// Display the contents of the list starting from the head element
     /// </summary>
     public void PrintListFrontToBack() {
+      if (Empty()) {
+        return;
+      }
       DoublyLinkedListElement<T> currentElement = head;
       while(currentElement.Next != null) {
         Console.Write("{0} ", currentElement.Data);
@@ -68,12 +103,19 @@ namespace DoublyLinkedList {
     /// Display the contents of the list starting from the tail element
     /// </summary>
     public void PrintListBackToFront() {
+      if (Empty()) {
+        return;
+      }
       DoublyLinkedListElement<T> currentElement = tail;
       while(currentElement.Previous != null) {
         Console.Write("{0} ", currentElement.Data);
         currentElement = currentElement.Previous;
       }
       Console.WriteLine("{0}", currentElement.Data);
+    }
+
+    public bool Empty() {
+      return head == null;
     }
   }
 }
