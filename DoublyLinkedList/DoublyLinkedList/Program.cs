@@ -22,6 +22,10 @@ namespace DoublyLinkedList {
       test2.InsertInBack(6);
       test2.PrintListFrontToBack();
       test2.PrintListBackToFront();
+      test1.RemoveAtIndex(2);
+      test2.RemoveAtIndex(3);
+      test1.PrintListFrontToBack();
+      test2.PrintListFrontToBack();
       Console.ReadKey();
     }
   }

@@ -73,15 +73,46 @@ namespace DoublyLinkedList {
     /// <param name="index"></param>
     public void RemoveAtIndex(int index) {
       if (index < Count - 1) {
-        int jumpsFromHead = index;
-        int jumpsFromTail = ;
+        RemoveIndexFromHead(index);
+        //if (SearchFromFront(index)) {
+        //  RemoveIndexFromHead(index);
+        //} else {
+        //  RemoveIndexFromTail(index);
+        //}
+        Count--;
       } else {
         throw new IndexOutOfRangeException();
       }
     }
 
-    private void Remove(DoublyLinkedListElement<T> toRemove) {
+    private void RemoveIndexFromHead(int index) {
+      DoublyLinkedListElement<T> currentElement = head;
+      for(int i = 0; i < index; i++) {
+        currentElement = currentElement.Next;
+      }
+      Remove(currentElement);
+    }
 
+    private void RemoveIndexFromTail(int index) {
+
+    }
+
+    private void Remove(DoublyLinkedListElement<T> toRemove) {
+      if(head == toRemove && tail == toRemove) {
+        head = null;
+        tail = null;
+      } else if (toRemove == tail) {
+        tail = toRemove.Previous;
+      } else if (toRemove == head) {
+        head = toRemove.Next;
+      } else {
+        toRemove.Previous.Next = toRemove.Next;
+        toRemove.Next.Previous = toRemove.Previous;
+      }
+    }
+
+    private bool SearchFromFront(int index) {
+      return index < Count - 1 - index;
     }
 
     /// <summary>
