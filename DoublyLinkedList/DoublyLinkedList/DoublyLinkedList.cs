@@ -73,18 +73,21 @@ namespace DoublyLinkedList {
     /// <param name="index"></param>
     public void RemoveAtIndex(int index) {
       if (index < Count - 1) {
-        RemoveIndexFromHead(index);
-        //if (SearchFromFront(index)) {
-        //  RemoveIndexFromHead(index);
-        //} else {
-        //  RemoveIndexFromTail(index);
-        //}
+        if (SearchFromFront(index)) {
+          RemoveIndexFromHead(index);
+        } else {
+          RemoveIndexFromTail(index);
+        }
         Count--;
       } else {
         throw new IndexOutOfRangeException();
       }
     }
 
+    /// <summary>
+    /// Remove an element at an index by iterating forward from head
+    /// </summary>
+    /// <param name="index">The index to remove</param>
     private void RemoveIndexFromHead(int index) {
       DoublyLinkedListElement<T> currentElement = head;
       for(int i = 0; i < index; i++) {
@@ -93,10 +96,22 @@ namespace DoublyLinkedList {
       Remove(currentElement);
     }
 
+    /// <summary>
+    /// Remove an element at an index by iterating backward from head
+    /// </summary>
+    /// <param name="index">The index to remove</param>
     private void RemoveIndexFromTail(int index) {
-
+      DoublyLinkedListElement<T> currentElement = tail;
+      for(int i = Count - 1; i > index; i--) {
+        currentElement = currentElement.Previous;
+      }
+      Remove(currentElement);
     }
 
+    /// <summary>
+    /// Remove a particular element from the list
+    /// </summary>
+    /// <param name="toRemove"></param>
     private void Remove(DoublyLinkedListElement<T> toRemove) {
       if(head == toRemove && tail == toRemove) {
         head = null;
@@ -111,6 +126,11 @@ namespace DoublyLinkedList {
       }
     }
 
+    /// <summary>
+    /// Indicates whether or not an item should be found by iterating forward from the head
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns>true if the distance from head to index is shorter that the index from tail to index</returns>
     private bool SearchFromFront(int index) {
       return index < Count - 1 - index;
     }
@@ -145,6 +165,10 @@ namespace DoublyLinkedList {
       Console.WriteLine("{0}", currentElement.Data);
     }
 
+    /// <summary>
+    /// Determines whether or not the list is empty
+    /// </summary>
+    /// <returns></returns>
     public bool Empty() {
       return head == null;
     }
